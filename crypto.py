@@ -5,6 +5,9 @@ import ta
 from ta import add_all_ta_features
 from ta.utils import dropna
 
+# file upload behavior to change
+st.set_option('deprecation.showfileUploaderEncoding', False)
+
 @st.cache
 def load_data():
     components = pd.read_html('https://finance.yahoo.com/cryptocurrencies/')[0]
@@ -22,7 +25,7 @@ def main():
 
     def label(symbol):
         a = components.loc[symbol]
-        return symbol + '-' + a.Name
+        return symbol
 
     if st.sidebar.checkbox('View cryptocurrencies list'):
         st.dataframe(components[['Name',
@@ -50,6 +53,7 @@ def main():
     data3 = data.copy()
     data3 = ta.add_all_ta_features(data3, "Open", "High", "Low", "Close", "Volume", fillna=True)
     rsi = data3[-section:]['momentum_rsi'].to_frame('momentum_rsi')
+    momentum = data3[['momentum_rsi', 'momentum_roc', 'momentum_tsi', 'momentum_uo', 'momentum_stoch', 'momentum_stoch_signal', 'momentum_wr', 'momentum_ao', 'momentum_kama']]
 
     sma = st.sidebar.checkbox('SMA')
     if sma:
@@ -68,26 +72,39 @@ def main():
     st.subheader('Chart')
     st.line_chart(data2)
 
-    st.subheader('Apply Technical Indicators')
-    st.code("""
-    data3 = data.copy()
-    data3 = ta.add_all_ta_features(data3, "Open", "High", "Low", "Close", "Volume", fillna=True)
-    """, language="python")
-    st.dataframe(data3)
-
-    st.subheader('Momentum Indicator: RSI')
-    st.line_chart(rsi)
+    if st.sidebar.checkbox('View momentum indicators'):
+        st.subheader('Apply Technical Indicators')
+        st.code("""
+        data = ta.add_all_ta_features(data3, "Open", "High", "Low", "Close", "Volume", fillna=True)
+        """, language="python")
+        st.header(f'Momentum Indicators')
+        st.table(momentum.iloc[[-3, -2, -1]].T.style.background_gradient(cmap='Blues'))
+        st.subheader('Momentum Indicator: RSI')
+        st.line_chart(rsi)
 
     if st.sidebar.checkbox('View statistic'):
-        st.subheader('Stadistic')
+        st.subheader('Statistic')
         st.table(data2.describe())
 
     if st.sidebar.checkbox('View quotes'):
         st.subheader(f'{asset} historical data')
         st.write(data2)
 
+    if st.sidebar.checkbox('Personal portfolio analysis'):
+        st.subheader(f'{asset} personal portfolio analysis')
+        file_buffer = st.file_uploader("Choose a .csv or .xlxs file\n 2 columns are expected 'rate' and 'price'", type=['xlsx','csv'])
+        if file_buffer is not None:
+             file = pd.read_excel(file_buffer)
+             file = pd.DataFrame(file)
+             st.table(file.style.background_gradient(cmap='Blues'))
+             weighted_rate = (file['price']*file['rate']).sum() / file['price'].sum()
+             daily_price = data.Close.iloc[-1]
+             perf = {'buying price': weighted_rate, 'current price': daily_price}
+             performance = pd.DataFrame(perf, columns = ['buying price', 'current price'], index=[asset])
+             st.table(performance.style.background_gradient(cmap='Blues'))
+
     st.sidebar.title("About")
-    st.sidebar.info('This app is a simple example of')
+    st.sidebar.info('This app aims to provide a comprehensive dashbaord to analyse cryptocurrency performance')
 
 if __name__ == '__main__':
     main()
