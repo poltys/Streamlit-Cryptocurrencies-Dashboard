@@ -2,6 +2,7 @@
 About Streamlit Dashboard returning technical indicators for a given crypto (yfinance/ta).
 
 ##### Running: `streamlit run https://raw.githubusercontent.com/poltys/Streamlit-Cryptocurrencies-Dashboard/master/app.py`
+![](https://github.com/poltys/Streamlit-Cryptocurrencies-Dashboard/blob/master/extra/streamlit-crypto-2020-08-31-17-08-89.gif)
 
 #### To Do
 - [ ] Add user inputs(https://github.com/poltys/Streamlit-Dashboard-Ticker_Technical_Analysis)
