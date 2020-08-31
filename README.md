@@ -5,15 +5,16 @@ About Streamlit Dashboard returning technical indicators for a given crypto (yfi
 ![](https://github.com/poltys/Streamlit-Cryptocurrencies-Dashboard/blob/master/extra/streamlit-crypto-2020-08-31-17-08-89.gif)
 
 #### To Do
-- [ ] Add user inputs(https://github.com/poltys/Streamlit-Dashboard-Ticker_Technical_Analysis)
-  - [ ] Buying Price & add shape(s)
-  - [ ] Create button to upload portfio detail and calcul global buying price / weighted av.
+- [X] Add user inputs(https://github.com/poltys/Streamlit-Dashboard-Ticker_Technical_Analysis)
+  - [X] Buying Price
+  - [ ] Add shapes(i.e. means)
+  - [X] Create button to upload portfio detail and calcul global buying price / weighted av.
   - [ ] Portfolio Size
-  - [ ] T Price
+  - [X] T Price
   - [ ] Add Dynamic Indicator
+  - [ ] Define df.style specific rules based on each technical indicators
 - [ ] Add means
 - [ ] Dynamically generate annotations
 - [X] Add technical indicators
-- [ ] Identify how to create pages with streamlit 
 - [ ] Add already trained ML predictive model - google colab 
 - [ ] Deploy on Heroku
