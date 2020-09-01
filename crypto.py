@@ -54,7 +54,6 @@ def main():
     data2 = data[-section:]['Adj Close'].to_frame('Adj Close')
     data3 = data.copy()
     data3 = ta.add_all_ta_features(data3, "Open", "High", "Low", "Close", "Volume", fillna=True)
-    rsi = data3[-section:]['momentum_rsi'].to_frame('momentum_rsi')
     momentum = data3[['momentum_rsi', 'momentum_roc', 'momentum_tsi', 'momentum_uo', 'momentum_stoch', 'momentum_stoch_signal', 'momentum_wr', 'momentum_ao', 'momentum_kama']]
 
     sma = st.sidebar.checkbox('SMA')
@@ -81,8 +80,9 @@ def main():
         """, language="python")
         st.header(f'Momentum Indicators')
         st.table(momentum.iloc[[-3, -2, -1]].T.style.background_gradient(cmap='Blues'))
-        st.subheader('Momentum Indicator: RSI')
-        st.line_chart(rsi)
+        for col in momentum.columns:
+            st.subheader(f'Momentum Indicator: {col}')
+            st.line_chart(data3[-section:][col].to_frame(col))
 
     if st.sidebar.checkbox('View statistic'):
         st.subheader('Statistic')
