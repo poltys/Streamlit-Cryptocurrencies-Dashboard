@@ -8,6 +8,7 @@ from ta.utils import dropna
 # file upload behavior to change
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
+option = st.sidebar.selectbox('Which currency (USD / EUR) would you like to check', ('USD', 'EUR'))
 
 @st.cache(allow_output_mutation=True)
 def load_data():
@@ -21,6 +22,10 @@ def load_quotes(asset):
 
 def main():
     components = load_data()
+    if option == 'EUR':
+            components.index = components.index.str.replace('USD', 'EUR')
+    if option == 'USD':
+            components.index = components.index.str.replace('EUR', 'USD')
     title = st.empty()
     st.sidebar.title("Options")
 

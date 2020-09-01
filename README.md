@@ -5,7 +5,10 @@ About Streamlit Dashboard returning technical indicators for a given crypto (yfi
 ![](https://github.com/poltys/Streamlit-Cryptocurrencies-Dashboard/blob/master/extra/streamlit-crypto-2020-08-31-17-08-89.gif)
 
 #### To Do
-- [ ] Add option to download list with USD or EUR 
+- [X] Add option to download list with USD or EUR
+  - defined in eur-usd-conversion:
+    - however some ticker do not provide result
+    - and first summary table is not updating
 - [X] Add user inputs(https://github.com/poltys/Streamlit-Dashboard-Ticker_Technical_Analysis)
   - [X] Buying Price
   - [ ] Add shapes(i.e. means)
@@ -17,5 +20,5 @@ About Streamlit Dashboard returning technical indicators for a given crypto (yfi
 - [ ] Add means
 - [ ] Dynamically generate annotations
 - [X] Add technical indicators
-- [ ] Add already trained ML predictive model - google colab 
+- [ ] Add already trained ML predictive model - google colab
 - [ ] Deploy on Heroku
