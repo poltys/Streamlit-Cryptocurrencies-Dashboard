@@ -6,9 +6,10 @@ About Streamlit Dashboard returning technical indicators for a given crypto (yfi
 
 #### To Do
 - [X] Add option to download list with USD or EUR
-  - defined in eur-usd-conversion:
+  - [X] Defined eur-usd ticker conversion(https://github.com/poltys/Streamlit-Cryptocurrencies-Dashboard/blob/master/eur-usd-conversion/eur_usd_conversion.py):
     - however some ticker do not provide result
     - and first summary table is not updating
+    - alternative source to be identified 
 - [X] Add user inputs(https://github.com/poltys/Streamlit-Dashboard-Ticker_Technical_Analysis)
   - [X] Buying Price
   - [ ] Add shapes(i.e. means)
