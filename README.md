@@ -16,7 +16,7 @@ About Streamlit Dashboard returning technical indicators for a given crypto (yfi
   - [X] Create button to upload portfolio details and define global buying price / weighted av.
   - [ ] Portfolio Size
   - [X] T Price
-  - [ ] Add Dynamic Indicator
+  - [ ] Add Dynamic Indicators
     - [X] Momentum Indicators
     - [X] Volatility Indicators
   - [ ] Define df.style specific rules based on each technical indicators
