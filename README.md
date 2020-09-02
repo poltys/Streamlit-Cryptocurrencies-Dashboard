@@ -24,5 +24,6 @@ About Streamlit Dashboard returning technical indicators for a given crypto (yfi
 - [ ] Add means
 - [ ] Dynamically generate annotations
 - [X] Add technical indicators
-- [ ] Add already trained ML predictive model - google colab
+- [X] Add already trained ML predictive model - google colab
+  - [ ] Allow user to use the model
 - [ ] Deploy on Heroku
