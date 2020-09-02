@@ -29,8 +29,7 @@ def load_data():
 #laoding model
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = tf.keras.models.load_model('model.h5')
-    model._make_predict_function()
+    model = tf.keras.models.load_model('BTC.h5')
     model.summary()
     return model
 
@@ -76,6 +75,7 @@ def main():
     data3 = ta.add_all_ta_features(data3, "Open", "High", "Low", "Close", "Volume", fillna=True)
     momentum = data3[['momentum_rsi', 'momentum_roc', 'momentum_tsi', 'momentum_uo', 'momentum_stoch', 'momentum_stoch_signal', 'momentum_wr', 'momentum_ao', 'momentum_kama']]
     volatility = data3[['volatility_atr','volatility_bbm','volatility_bbh','volatility_bbl','volatility_bbw','volatility_bbp','volatility_bbhi','volatility_bbli','volatility_kcc','volatility_kch','volatility_kcl','volatility_kcw','volatility_kcp','volatility_kchi','volatility_kcli','volatility_dcl','volatility_dch',]]
+    datapred = data[-section:]['Adj Close'].to_frame('Adj Close').rename(columns={'Adj Close':'adjclose'})
 
     sma = st.sidebar.checkbox('SMA')
     if sma:
@@ -92,10 +92,11 @@ def main():
         data2[f'SMA2 {period2}'] = data[f'SMA2 {period2}'].reindex(data2.index)
 
     st.subheader('Chart')
-    if asset != 'XRP-USD':
+    if asset != 'BTC-USD':
         st.line_chart(data2)
-    if asset == 'XRP-USD':
-        #model = load_model()
+    if asset == 'BTC-USD':
+        model = load_model()
+        #future_price = model.predict(model, datapred)
         st.line_chart(data2)
 
     if st.sidebar.checkbox('View momentum indicators'):
