@@ -4,6 +4,17 @@ import yfinance
 import ta
 from ta import add_all_ta_features
 from ta.utils import dropna
+# ml lib
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Dropout, Bidirectional
+from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import tensorflow.keras.backend as K
+import os
 
 
 # file upload behavior to change
@@ -14,6 +25,14 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 def load_data():
     components = pd.read_html('https://finance.yahoo.com/cryptocurrencies/')[0]
     return components.drop('1 Day Chart', axis=1).set_index('Symbol')
+
+#laoding model
+@st.cache(allow_output_mutation=True)
+def load_model():
+    model = tf.keras.models.load_model('model.h5')
+    model._make_predict_function()
+    model.summary()
+    return model
 
 
 @st.cache
@@ -73,7 +92,11 @@ def main():
         data2[f'SMA2 {period2}'] = data[f'SMA2 {period2}'].reindex(data2.index)
 
     st.subheader('Chart')
-    st.line_chart(data2)
+    if asset != 'XRP-USD':
+        st.line_chart(data2)
+    if asset == 'XRP-USD':
+        #model = load_model()
+        st.line_chart(data2)
 
     if st.sidebar.checkbox('View momentum indicators'):
         st.subheader('Apply Technical Indicators')
